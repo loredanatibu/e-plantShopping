@@ -257,9 +257,8 @@ function ProductList({ onHomeClick }) {
         setAddedToCart((prevState) => ({
             ...prevState,
             [product.name]: true,
-  }));
-};
-
+        }));
+    };
     return (
         <div>
             <div className="navbar" style={styleObj}>
