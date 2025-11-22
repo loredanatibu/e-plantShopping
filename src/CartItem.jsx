@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = ({ onContinueShopping,onCheckout}) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
@@ -12,18 +12,27 @@ const CartItem = ({ onContinueShopping }) => {
     return cart.reduce((sum, item) => sum + parseFloat(item.cost.substring(1)) * item.quantity, 0);
   };
 
-const handleContinueShopping = (e) => {
-  console.log('CartItem: handleContinueShopping called');
-  console.log('onContinueShopping =', onContinueShopping);
-  console.trace();
-  if (typeof onContinueShopping === 'function') {
-    onContinueShopping(e); // forward event
-  }
-};
+  const handleContinueShopping = (e) => {
+    console.log('CartItem: handleContinueShopping called');
+    console.log('onContinueShopping =', onContinueShopping);
+    console.trace();
+    if (typeof onContinueShopping === 'function') {
+      onContinueShopping(e); // forward event
+    }
+  };
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
+
+  const handleCheckout= (e) => {
+    console.log('CartItem: handleCheckout called');
+    console.log('ohandleCheckout =', handleCheckout);
+    console.trace();
+    if (typeof onCheckout === 'function') {
+     onCheckout(e); // forward event
+     };
+   };
 
   const handleDecrement = (item) => {
     const currentQuantity = item.quantity;
@@ -69,7 +78,7 @@ const handleContinueShopping = (e) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={handleContinueShopping}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button className="get-started-button1" onClick={handleCheckout}>Checkout</button>
       </div>
     </div>
   );

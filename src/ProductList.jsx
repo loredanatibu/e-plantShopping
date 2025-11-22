@@ -242,6 +242,12 @@ function ProductList({ onHomeClick, onShowProducts }) {
         e.preventDefault();
         onHomeClick();
     };
+    const handleCheckoutClick = (e) => {
+        e.preventDefault();
+        setShowCart(false); 
+        onHomeClick();
+    };
+
     const handleCartClick = (e) => {
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
@@ -321,7 +327,7 @@ function ProductList({ onHomeClick, onShowProducts }) {
                     ))}
                 </div>
             ) : (
-            <CartItem onContinueShopping={handleContinueShopping}/>)}
+            <CartItem onContinueShopping={handleContinueShopping} onCheckout={handleCheckoutClick} />)}
         </div>
         );
     }
