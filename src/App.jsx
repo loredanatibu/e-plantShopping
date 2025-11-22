@@ -3,14 +3,24 @@ import React, { useState } from 'react';
 import ProductList from './ProductList';
 import './App.css';
 import AboutUs from './AboutUs';
+import { useEffect } from 'react';
+
 
 function App() {
-  
+
   const [showProductList, setShowProductList] = useState(false);
+    useEffect(() => {
+    console.log('App: showProductList =', showProductList);
+  }, [showProductList]);
 
   const handleGetStartedClick = () => {
     setShowProductList(true);
   };
+  
+  const onShowProducts = () => {
++    console.log('App: onShowProducts called');
++    setShowProductList(true);
+};
 
   const handleHomeClick = () => {
     setShowProductList(false);
@@ -37,7 +47,10 @@ function App() {
 
       </div>
       <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
+        <ProductList 
+        onHomeClick={handleHomeClick}
+        onShowProducts={onShowProducts}
+        />
       </div>
     </div>
   );

@@ -9,24 +9,29 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
-    return cart.reduce((sum, item) => sum + parseFloat(item.cost.substring(1)) * item.quantity, 0);;
+    return cart.reduce((sum, item) => sum + parseFloat(item.cost.substring(1)) * item.quantity, 0);
   };
 
-  const handleContinueShopping = (e) => {
-    alert('Functionality to be added for future reference');
-  };
+const handleContinueShopping = (e) => {
+  console.log('CartItem: handleContinueShopping called');
+  console.log('onContinueShopping =', onContinueShopping);
+  console.trace();
+  if (typeof onContinueShopping === 'function') {
+    onContinueShopping(e); // forward event
+  }
+};
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
   const handleDecrement = (item) => {
-    const currentQuantity=item.quantity;
-    if (currentQuantity>1){
-        dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
-    }
-    else if(currentQuantity==0){
-        dispatch(removeItem(item.name));
+    const currentQuantity = item.quantity;
+    if (currentQuantity > 1) {
+      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
+    } else {
+      // if quantity is 1 or less, remove the item
+      dispatch(removeItem(item.name));
     }
   };
 
@@ -62,7 +67,7 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" onClick={(e) => onContinueShopping(e)}>Continue Shopping</button>
         <br />
         <button className="get-started-button1">Checkout</button>
       </div>

@@ -3,7 +3,7 @@ import {useDispatch,useSelector  } from 'react-redux';
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
-function ProductList({ onHomeClick }) {
+function ProductList({ onHomeClick, onShowProducts }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
@@ -320,10 +320,12 @@ function ProductList({ onHomeClick }) {
                     ))}
                 </div>
             ) : (
-                <CartItem onContinueShopping={handleContinueShopping} />
-            )}
+            <CartItem onContinueShopping={(e) => {
+                setShowCart(false);
+                if (typeof onShowProducts === 'function') onShowProducts(e);}}
+                />)}
         </div>
-    );
-}
+        );
+    }
 
 export default ProductList;
