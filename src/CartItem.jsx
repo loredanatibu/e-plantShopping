@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { removeItem, updateQuantity , clearCart } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping,onCheckout}) => {
@@ -30,7 +30,8 @@ const CartItem = ({ onContinueShopping,onCheckout}) => {
     console.log('ohandleCheckout =', handleCheckout);
     console.trace();
     if (typeof onCheckout === 'function') {
-     onCheckout(e); // forward event
+      dispatch(clearCart()); // Clear the cart upon checkout
+      onCheckout(e); // forward event
      };
    };
 
