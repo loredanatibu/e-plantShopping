@@ -254,6 +254,7 @@ function ProductList({ onHomeClick, onShowProducts }) {
     const handleContinueShopping = (e) => {
         e.preventDefault();
         setShowCart(false);
+        onShowProducts();
     };
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
@@ -320,10 +321,7 @@ function ProductList({ onHomeClick, onShowProducts }) {
                     ))}
                 </div>
             ) : (
-            <CartItem onContinueShopping={(e) => {
-                setShowCart(false);
-                if (typeof onShowProducts === 'function') onShowProducts(e);}}
-                />)}
+            <CartItem onContinueShopping={handleContinueShopping}/>)}
         </div>
         );
     }
